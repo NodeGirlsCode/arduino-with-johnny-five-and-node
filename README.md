@@ -20,11 +20,11 @@ Neste tutorial vamos usar como base o Arduino Uno!
 
 * Primeiro de tudo, depois de feito o download do software do arduíno de acordo com os requisitos da sua máquina, plugue o arduíno nela e veja se os drivers instalam com sucesso.
 
-Se der problema para instalar e o seu PC não reconhecer o arduíno, você vai fazer o seguinte. Vai no Gerenciador de Dispositivos da sua máquina, procurar em Outros Dispositivos o seu arduíno perdido como "Dispositivo Desconhecido", clicar com o botão direito em Instalar ou Atualizar Driver. Selecione a opção de procurar dentro do computador o driver e selecione a pasta que está dentro da instalação do arduíno que você acabou de baixar, que é algo parecido com isso: ```C:\Users\seu usuário\Downloads\arduino-1.8.5-windows\arduino-1.8.5\drivers```. Se seu PC for Linux, também é caso de instalar os drivers. Pergunte-nos como em http://nodegirlscode.org/contact ou abra um issue.
+Se der problema para instalar e o seu PC não reconhecer o arduíno, você vai fazer o seguinte. Vai no Gerenciador de Dispositivos da sua máquina, procurar em Outros Dispositivos o seu arduíno perdido como "Dispositivo Desconhecido", clicar com o botão direito em Instalar ou Atualizar Driver. Selecione a opção de procurar dentro do computador o driver e selecione a pasta que está dentro da instalação do arduíno que você acabou de baixar, que é algo parecido com isso: `C:\Users\seu usuário\Downloads\arduino-1.8.5-windows\arduino-1.8.5\drivers`. Se seu PC for Linux, também é caso de instalar os drivers. Pergunte-nos como em http://nodegirlscode.org/contact ou abra um issue.
 
 * Espere e provavelmente ele vai conseguir instalar tudo pra ti. Beleza? :)
 
-* Agora vamos executar o ```arduino.exe``` que fica dentro da pasta que baixamos do site do arduíno. Vamos ver se ele está funcionando, beleza?
+* Agora vamos executar o `arduino.exe` que fica dentro da pasta que baixamos do site do arduíno. Vamos ver se ele está funcionando, beleza?
 
 * Abriu uma janelinha azul bem bonitinha. Vamos ir em Ferramentas > Placa e selecionar o arduíno que estamos trabalhando. O meu é o Uno :)
 
@@ -34,7 +34,7 @@ Se der problema para instalar e o seu PC não reconhecer o arduíno, você vai f
 
 * Vai carregar um código parecido com esse:
 
-```
+```c
 /*
   Blink
 
@@ -85,11 +85,11 @@ Pronto. Seu arduíno funciona! Vamos codar em Javascript?
 
 * Agora, vamos instalar o Johnny Five! Ele que faz a gente conseguir manipular via Javascript o nosso arduíno :)
 
-```npm install johnny-five```
+`npm install johnny-five`
 
 * Com o JF instalado, você pode agora criar dentro do seu projeto um arquivo ```index.js``` que contém o seguinte código:
 
-```
+```js
 var five = require("johnny-five");
 var board = new five.Board();
 
@@ -103,32 +103,34 @@ board.on("ready", function() {
 });
 ```
 
-* Uma observação importante é que se você trabalha com Linux, terá que liberar a porta COM utilizando o código ```sudo chmod a+rw /dev/ttyACM0```
+* Uma observação importante é que se você trabalha com Linux, terá que liberar a porta COM utilizando o código `sudo chmod a+rw /dev/ttyACM0`
 
-* Mas ainda assim, se tentarmos rodar com ```node index.js``` nosso código no Git Bash vai dar erro, porque não temos o Firmata. Vamos instalar então :)
+* Mas ainda assim, se tentarmos rodar com `node index.js` nosso código no Git Bash vai dar erro, porque não temos o Firmata. Vamos instalar então :)
 
-```npm install firmata-party```
+`npm install firmata-party`
 
 * Depois de instalado, vamos criar no package.json um script para resetar nosso arduíno antes que executar os códigos nele, para que funcione.
 
-```
+```json
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "reset": "firmata-party uno --debug"
   },
-  ```
+```
   
 * Vamos rodar então para resetar:
 
-```npm run reset```
+`npm run reset`
 
 * E agora para rodar o código:
 
-```node index.js```
+`node index.js`
 
-* Se eu quiser interagir em prompt de comando lá no Git Bash com o código, eu insiro no index.js embaixo de ```led.blink(50);```
+* Se eu quiser interagir em prompt de comando lá no Git Bash com o código, eu insiro no index.js embaixo de `led.blink(50);`
 
-```  this.repl.inject({led: led}); ```
+```js
+this.repl.inject({led: led}); 
+```
 
 Isso vai fazer com que consigamos configurar o led do nosso arduíno no próprio Git Bash. Se usarmos comandos como led.on(), o led só acende. Se usarmos led.stop(), o led apaga. Se usarmos led.strobe(), ele volta a piscar como definimos no código, ou ainda podemos definir dentro da função com led.strobe(2000), sendo acendido e apagado a cada 2 segundos.
 
